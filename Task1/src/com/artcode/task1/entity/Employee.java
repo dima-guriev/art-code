@@ -83,6 +83,7 @@ public class Employee {
 
     @Override
     public String toString() {
+        //salary is private info
         return getName() + SEPARATOR + "age = " + getAge() + SEPARATOR + (isMale() ? "male" : "female") + SEPARATOR + "experience = " + getExperience() + " month" + SEPARATOR + getAddress() + SEPARATOR;
     }
 }

@@ -6,6 +6,7 @@ import com.artcode.task1.entity.Employee;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -26,47 +27,84 @@ public class Menu {
                 showMenu(readCommand());
                 break;
             case 1:
-                System.out.println(company);
+                printCompanyInfo();
                 break;
             case 2:
-                System.out.println(company.getEmployees());
+                printCompanyEmployees();
                 break;
             case 3:
-                company.getEmployees().stream().filter(employee -> employee.getExperience() > 12).forEach(System.out::println);
+                printEmployeesWithMoreThenOneYearExperience();
                 break;
             case 4:
-                company.getEmployees().stream().filter(employee -> !employee.isMale()).
-                        filter(employee1 -> "Kiev".equals(employee1.getAddress().getCity())).forEach(System.out::println);
+                printGirlsFromKiev();
                 break;
             case 5:
                 addEmployee();
                 break;
             case 6:
-                System.out.println("Enter an employee index");
-                company.getEmployees().remove(readCommand());
+                fireEmployee();
                 break;
             case 7:
-                company.setEmployees(company.getEmployees().stream().filter(employee ->
-                        employee.getSalary() >= 1000 && employee.getExperience() >= 12).collect(Collectors.toList()));
+                fireEmployees(employee ->
+                        employee.getSalary() >= 1000 && employee.getExperience() >= 12);
                 break;
             case 8:
-                System.out.println("Enter an employee index");
-                changeEmployee(company.getEmployees().get(readCommand()));
+                changeEmployeeInfo();
                 break;
             case 9:
-                company.getEmployees().stream().sorted(Comparator.comparing(Employee::isMale)).forEach(System.out::println);
+                showFemaleFirst();
                 break;
             case 10:
-                company.getEmployees().stream().filter(employee -> {
+                Predicate<Employee> employeePredicate = employee -> {
                     long workingPeriod = employee.getHireDate().getTime() - System.currentTimeMillis();
                     workingPeriod = TimeUnit.HOURS.convert(workingPeriod, TimeUnit.MILLISECONDS);
                     return workingPeriod > 100 && workingPeriod < 200;
-                }).forEach(System.out::println);
+                };
+                printEmployees(employeePredicate);
                 break;
             default:
                 System.exit(0);
         }
         showMenu(0);
+    }
+
+    private static void printEmployees(Predicate<Employee> employeePredicate) {
+        company.getEmployees().stream().filter(employeePredicate).forEach(System.out::println);
+    }
+
+    private static void showFemaleFirst() {
+        company.getEmployees().stream().sorted(Comparator.comparing(Employee::isMale)).forEach(System.out::println);
+    }
+
+    private static void changeEmployeeInfo() {
+        System.out.println("Enter an employee index");
+        changeEmployee(company.getEmployees().get(readCommand()));
+    }
+
+    private static void fireEmployees(Predicate<Employee> employeePredicate) {
+        company.setEmployees(company.getEmployees().stream().filter(employeePredicate).collect(Collectors.toList()));
+    }
+
+    private static void fireEmployee() {
+        System.out.println("Enter an employee index");
+        company.getEmployees().remove(readCommand());
+    }
+
+    private static void printGirlsFromKiev() {
+        company.getEmployees().stream().filter(employee -> !employee.isMale()).
+                filter(employee1 -> "Kiev".equals(employee1.getAddress().getCity())).forEach(System.out::println);
+    }
+
+    private static void printEmployeesWithMoreThenOneYearExperience() {
+        company.getEmployees().stream().filter(employee -> employee.getExperience() > 12).forEach(System.out::println);
+    }
+
+    private static void printCompanyEmployees() {
+        System.out.println(company.getEmployees());
+    }
+
+    private static void printCompanyInfo() {
+        System.out.println(company);
     }
 
     private static void changeEmployee(Employee employee) {

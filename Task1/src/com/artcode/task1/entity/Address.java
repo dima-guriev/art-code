@@ -38,6 +38,6 @@ public class Address {
 
     @Override
     public String toString() {
-        return getCountry() + ". " + getCity() + ", " + getCity() + " " + getBuilding();
+        return getCountry() + ". " + getCity() + ", " + getStreet() + " " + getBuilding();
     }
 }

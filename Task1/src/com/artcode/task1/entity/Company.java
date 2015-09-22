@@ -21,10 +21,6 @@ public class Company {
         return name;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
     public int getEmployeesAmount() {
         return employeesAmount;
     }
@@ -35,10 +31,16 @@ public class Company {
 
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
+        this.employeesAmount = employees.size();
+    }
+
+    private void updateEmployeesAmount() {
+        employeesAmount = employees.size();
     }
 
     @Override
     public String toString() {
+        updateEmployeesAmount();
         return getName() + SEPARATOR + address + SEPARATOR + "employees = " + getEmployeesAmount() + SEPARATOR + getEmployees();
     }
 }
