@@ -1,2 +1,0 @@
-# art-code
-JavaEE training
