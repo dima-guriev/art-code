@@ -1,4 +1,6 @@
-package com.artcode.training.console.commands;
+package com.artcode.training.console.commands.implementation;
+
+import com.artcode.training.console.commands.AbstractCommand;
 
 import java.io.File;
 

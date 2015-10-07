@@ -1,11 +1,13 @@
-package com.artcode.training.console.commands;
+package com.artcode.training.console.commands.implementation;
+
+import com.artcode.training.console.commands.AbstractCommand;
 
 import java.io.File;
 
 public class HelpCommand extends AbstractCommand {
     @Override
     public String help() {
-        return "--help - show all available commands;";
+        return "help - show all available commands;";
     }
 
     @Override
