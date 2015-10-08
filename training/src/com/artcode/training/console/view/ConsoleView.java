@@ -4,10 +4,13 @@ import com.artcode.training.console.controller.CommandController;
 
 public class ConsoleView {
     public static void main(String[] args) {
-        CommandController commandController = new CommandController(System.out);
+        CommandController commandController = new CommandController();
         while (true) {
-            commandController.printCurrentLocation();
-            commandController.readInputCommand();
+            System.out.print(commandController.getCurrentLocation());
+            String result = commandController.readInputCommand();
+            if (!result.isEmpty()) {
+                System.out.println(result);
+            }
         }
     }
 }
