@@ -16,11 +16,7 @@ public class CommandController {
 
     public CommandController(PrintStream printStream) {
         this.printStream = printStream;
-        this.currentFile = new File("");
-    }
-
-    private Commands getCommand(String input) {
-        return Commands.valueOf(input.toUpperCase());
+        this.currentFile = new File("").getAbsoluteFile();
     }
 
     public void readInputCommand() {
