@@ -7,7 +7,7 @@ import java.io.File;
 public class HelpCommand extends AbstractCommand {
     @Override
     public String help() {
-        return "help - show all available commands;";
+        return "help - show all available commands";
     }
 
     @Override

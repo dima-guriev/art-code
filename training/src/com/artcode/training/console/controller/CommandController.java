@@ -28,7 +28,6 @@ public class CommandController {
             Commands command = Commands.valueOf(args[0].toUpperCase());
             precessCommand(args, command);
         } catch (Exception ignored) {
-            ignored.printStackTrace();
         }
     }
 

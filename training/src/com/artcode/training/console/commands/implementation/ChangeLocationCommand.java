@@ -7,9 +7,9 @@ import java.io.File;
 public class ChangeLocationCommand extends AbstractCommand {
     @Override
     public String help() {
-        return "cd .. - go to parent directory\n"
-                + "cd directory[" + File.separator + "directory] - go to child directory\n"
-                + "cd absolute path - go to specified directory";
+        return "cd < .. | directory[" + File.separator + "directory] | absolute path>  - go to parent directory | "
+                + " go to child directory | "
+                + "go to specified directory";
     }
 
     @Override

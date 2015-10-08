@@ -1,14 +1,14 @@
 package com.artcode.training.console.commands;
 
-import com.artcode.training.console.commands.implementation.ChangeLocationCommand;
-import com.artcode.training.console.commands.implementation.HelpCommand;
-import com.artcode.training.console.commands.implementation.ShowDirectoryContentCommand;
-import com.artcode.training.console.commands.implementation.ShowFileContentCommand;
+import com.artcode.training.console.commands.implementation.*;
 
 public enum Commands {
     CD(new ChangeLocationCommand()),
     DIR(new ShowDirectoryContentCommand()),
     TYPE(new ShowFileContentCommand()),
+    DEL(new DeleteFileCommand()),
+    RD(new DeleteDirectoryCommand()),
+    MKDIR(new CreateDirectoryCommand()),
     HELP(new HelpCommand());
 
     private AbstractCommand command;
