@@ -3,6 +3,7 @@ package com.artcode.training.console.controller;
 import com.artcode.training.console.commands.Commands;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -11,14 +12,15 @@ public class CommandController {
     public static final String SEPARATOR = " ";
     public static final String QUIT = "q";
     private File currentFile;
+    private Scanner scanner;
 
-    public CommandController() {
+    public CommandController(InputStream inputStream) {
         this.currentFile = new File("").getAbsoluteFile();
+        this.scanner = new Scanner(inputStream);
     }
 
     public String readInputCommand() {
         try {
-            Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
             if (QUIT.equals(input)) System.exit(0);
             String[] args = input.split(SEPARATOR);
