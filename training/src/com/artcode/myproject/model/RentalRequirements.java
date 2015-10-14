@@ -1,5 +1,7 @@
 package com.artcode.myproject.model;
 
+import com.artcode.training.week3.xml.model.ToPrint;
+
 import java.util.List;
 
 /**
@@ -7,4 +9,13 @@ import java.util.List;
  */
 public class RentalRequirements {
     private List<AppartmentsType> suitableTypes;
+    @ToPrint
+    private int cost;
+    @ToPrint
+    private String descriprion;
+
+    public RentalRequirements(int cost, String descriprion) {
+        this.cost = cost;
+        this.descriprion = descriprion;
+    }
 }
