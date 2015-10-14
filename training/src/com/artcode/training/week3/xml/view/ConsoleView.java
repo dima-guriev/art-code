@@ -4,8 +4,6 @@ import com.artcode.myproject.model.RentalRequirements;
 import com.artcode.myproject.model.User;
 import com.artcode.training.week3.xml.controller.XMLController;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +15,7 @@ public class ConsoleView {
     public static final String INSTRUCTIONS_FOR_WRITING = "Please, enter path to file for writing";
     public static final String INSTRUCTIONS_FOR_READING = "Please, enter path to file for reading";
 
-    public static void main(String[] args) throws ParserConfigurationException, TransformerException, IOException, IllegalAccessException {
+    public static void main(String[] args) throws IOException {
         showIntro();
         Scanner scanner = new Scanner(System.in);
         boolean command = scanner.nextInt() == 1;

@@ -27,18 +27,18 @@ public class ObjectWriter {
     public static final String TYPE_TAG_NAME = "type";
     public static final String TAIL_FOR_PARENT_NODE = "s";
     public static final String INDENT_PROPERTY_VALUE = "yes";
+    public static final String ARRAY = "array";
 
     public static void writeToXML(Object o, String filePath) throws IOException {
         try {
-            DocumentBuilderFactory factory =
-                    DocumentBuilderFactory.newInstance();
-
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             DocumentBuilder documentBuilder = factory.newDocumentBuilder();
             Document document = documentBuilder.newDocument();
             Element root = makeNode(o, document, null);
             document.appendChild(root);
             File file = new File(filePath);
             recreateFile(file);
+            //write to file using transformer
             try (FileWriter fileWriter = new FileWriter(file)) {
                 Transformer transformer = TransformerFactory.newInstance().newTransformer();
                 transformer.setOutputProperty(OutputKeys.INDENT, INDENT_PROPERTY_VALUE);
@@ -62,16 +62,20 @@ public class ObjectWriter {
 
     private static Element makeNode(Object o, Document document, Element root) throws IllegalAccessException {
         Element result = null;
+        //adding nodes if incoming object is array
         if (o.getClass().isArray()) {
             //getting type of array from first element
             result = getRoot(Array.get(o, 0), document, true);
+            result.setAttribute(CLASS_TAG_NAME, ARRAY);
             for (int i = 0; i < Array.getLength(o); i++) {
                 result = makeNode(Array.get(o, i), document, result);
             }
-        } else if (o instanceof Iterable) {
+
+        } else if (o instanceof Iterable) {//adding nodes if incoming object is collection
             for (Object o1 : ((Iterable) o)) {
                 if (result == null) {
                     result = getRoot(o1, document, true);
+                    result.setAttribute(CLASS_TAG_NAME, o.getClass().getName());
                 }
                 result = makeNode(o1, document, result);
             }
@@ -86,6 +90,7 @@ public class ObjectWriter {
                     Element node = document.createElement(field.getName());
                     node.setAttribute(TYPE_TAG_NAME, field.getType().getSimpleName());
                     field.setAccessible(true);
+                    //checking if field is complex object
                     List<Field> localFields = getAnnotatedFields(field.get(o));
                     if (localFields.isEmpty()) {
                         node.setTextContent(String.valueOf(field.get(o)));
